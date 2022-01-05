@@ -23,7 +23,7 @@ class StudentFactory extends Factory
     {
         return [
             'student_code' => "BKC".rand(1000,9999),
-            'name_student' => $this->faker->name(),
+            'name_student' =>"Sinh viên ".rand(1,100),
             'gender' => rand(0,1),
             'phone' => $this->faker->phoneNumber(),
             'dob' => $this->faker->date(),

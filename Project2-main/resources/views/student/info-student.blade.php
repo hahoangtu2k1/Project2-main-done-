@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <h1 style="margin-top: 50px; text-align: center">Tra cứu học phí sinh viên</h1>
         <br>
-        <div style="font-size: large">
+        {{-- <div style="font-size: large">
             @foreach ($rs as $item)
                 <b>Lưu ý:</b> <br>
                 @php
@@ -41,8 +41,8 @@
                     }
                 @endphp
             @endforeach
-        </div>
-        <br>
+        </div> --}}
+        <br><br><br><br><br><br>
         <table class="table table-bordered text-center">
             <thead>
                 <tr>
@@ -64,8 +64,11 @@
                         <td>{{ $item->name_class }}</td>
                         <td>{{ $item->tolltype }}</td>
                         {{-- <td>{{ $item->currentbatch }}</td> --}}
-                        <td>{{ number_format($money, 0, '', '.') }}đ</td>
+                        <td>{{ number_format($money, 0, '', '.') }} đ</td>
                         <td>
+                            @if ($item->number_payment >= $item->currentbatch)
+                                <p style="color: blue">Đã nộp đủ</p>
+                            @endif
                             @php
                                     $loai = $item->id_type;
                                     $dothientai = $item->currentbatch;
@@ -73,45 +76,42 @@
                                     if ($loai == 1 && $dotdadong < $dothientai) {
                                         echo 'Nợ ' . $dothientai - $dotdadong . ' tháng';
                                     }
-                                    if ($loai == 2 && $dothientai - $dotdadong <= 5) {
+                                    if ($loai == 2 && $dothientai - $dotdadong <= 5 && $dotdadong < $dothientai) {
                                         echo 'Nợ 1 kỳ';
                                     } 
-                                    elseif ($loai == 2 && $dothientai - $dotdadong > 5 && $dothientai - $dotdadong <= 10){
+                                    elseif ($loai == 2 && $dothientai - $dotdadong > 5 && $dothientai - $dotdadong <= 10 && $dotdadong < $dothientai){
                                         echo 'Nợ 2 kỳ';
                                     }
-                                     elseif ($loai == 2 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <= 15) {
+                                     elseif ($loai == 2 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <= 15 && $dotdadong < $dothientai) {
                                         echo 'Nợ 3 kỳ'; 
                                     }
-                                    elseif ($loai == 2 && $dothientai - $dotdadong > 15 && $dothientai - $dotdadong <= 20){
+                                    elseif ($loai == 2 && $dothientai - $dotdadong > 15 && $dothientai - $dotdadong <= 20 && $dotdadong < $dothientai){
                                         echo 'Nợ 4 kỳ'; 
                                     }
-                                    elseif ($loai == 2 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <= 25) {
+                                    elseif ($loai == 2 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <= 25 && $dotdadong < $dothientai) {
                                         echo 'Nợ 5 kỳ'; 
                                     }
-                                    elseif ($loai == 2 && $dothientai - $dotdadong > 25 && $dothientai - $dotdadong < 30) {
+                                    elseif ($loai == 2 && $dothientai - $dotdadong > 25 && $dothientai - $dotdadong < 30 && $dotdadong < $dothientai) {
                                         echo 'Nợ 6 kỳ'; 
                                     }
-                                    if ($loai == 3 && $dothientai - $dotdadong <= 10 ){
+                                    if ($loai == 3 && $dothientai - $dotdadong <= 10 && $dotdadong < $dothientai){
                                         echo 'Nợ 1 năm';
                                     }
-                                    elseif ($loai == 3 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <=20) {
+                                    elseif ($loai == 3 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <=20 && $dotdadong < $dothientai) {
                                         echo 'Nợ 2 năm';
                                     }
-                                    elseif ($loai == 3 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <30) {
+                                    elseif ($loai == 3 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <30 && $dotdadong < $dothientai)  {
                                         echo 'Nợ 3 năm';
                                     }
-                                    
+                                    if ($loai == 4 && $dothientai - $dotdadong < 30 && $dotdadong < $dothientai){
+                                        echo 'Nợ 3 năm';
+                                    }
                                 @endphp
                         </td>
-                            
-                            
-                            
-                            
-                        
                         {{-- <td>{{ $item->number_payment }}</td> --}}
                         <td>
                             @if ($item->number_payment >= $item->currentbatch)
-                                <p style="color: blue">Đã nộp đủ</p>
+                                <p style="color: blue">0 đ</p>
                             @endif
                             @php
                                 $loai = $item->id_type;
@@ -120,30 +120,30 @@
                                 if ($loai == 1 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * $dothientai - $dotdadong, 0, '', '.')." đ</p>";
                                 }
-                                if ($loai == 2 && $dothientai - $dotdadong <= 5) {
+                                if ($loai == 2 && $dothientai - $dotdadong <= 5 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money, 0, '', '.')." đ</p>";
-                                } elseif ($loai == 2 && $dothientai - $dotdadong > 5 && $dothientai - $dotdadong <= 10) {
+                                } elseif ($loai == 2 && $dothientai - $dotdadong > 5 && $dothientai - $dotdadong <= 10 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 2, 0, '', '.')." đ</p>";
-                                } elseif ($loai == 2 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <= 15) {
+                                } elseif ($loai == 2 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <= 15 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 3, 0, '', '.')." đ</p>";
-                                } elseif ($loai == 2 && $dothientai - $dotdadong > 15 && $dothientai - $dotdadong <= 20) {
+                                } elseif ($loai == 2 && $dothientai - $dotdadong > 15 && $dothientai - $dotdadong <= 20 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 4, 0, '', '.')." đ</p>";
-                                } elseif ($loai == 2 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <= 25) {
+                                } elseif ($loai == 2 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <= 25 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 5, 0, '', '.')." đ</p>";
-                                } elseif ($loai == 2 && $dothientai - $dotdadong > 25 && $dothientai - $dotdadong <= 30) {
+                                } elseif ($loai == 2 && $dothientai - $dotdadong > 25 && $dothientai - $dotdadong < 30 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 6, 0, '', '.')." đ</p>";
                                 } 
-                                if ($loai == 3 && $dothientai - $dotdadong <= 10) {
+                                if ($loai == 3 && $dothientai - $dotdadong <= 10 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money, 0, '', '.')." đ</p>";
                                     
                                 }
-                                elseif ($loai == 3 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <=20) {
+                                elseif ($loai == 3 && $dothientai - $dotdadong > 10 && $dothientai - $dotdadong <=20 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 2, 0, '', '.')." đ</p>";
                                 }
-                                elseif ($loai == 3 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <=30) {
+                                elseif ($loai == 3 && $dothientai - $dotdadong > 20 && $dothientai - $dotdadong <30 && $dotdadong < $dothientai) {
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money * 3, 0, '', '.')." đ</p>";
                                 }
-                                if ($loai == 4 && $dothientai - $dotdadong <= 30){
+                                if ($loai == 4 && $dothientai - $dotdadong < 30 && $dotdadong < $dothientai){
                                     echo "<p style='color:red'>".'Nợ ' . number_format($money, 0, '', '.')." đ</p>";
                                     
                                 }

@@ -278,12 +278,24 @@ class MyModel
 
     static function getListStatiscal($id)
     {
-        return DB::table('students')
-            ->join('classes', 'students.id_classes', '=', 'classes.id_class')
-            ->join('schoolyears', 'classes.id_schoolyear', '=', 'schoolyears.id')
-            ->join('tolltypes', 'students.id_tolltype', '=', 'tolltypes.id_type')
-            ->where('students.id_classes','=',$id)
-            ->get();
+        // dd(DB::table('students')
+        // ->join('classes', 'students.id_classes', '=', 'classes.id_class')
+        // ->join('schoolyears', 'classes.id_schoolyear', '=', 'schoolyears.id')
+        // ->join('tolltypes', 'students.id_tolltype', '=', 'tolltypes.id_type')
+        // ->where('students.id_classes','=',$id)
+        // ->where('schoolyears.currentbatch','>=','students.number_payment')
+        // ->get()) ;
+        // return DB::table('students')
+        //     ->join('classes', 'students.id_classes', '=', 'classes.id_class')
+        //     ->join('schoolyears', 'classes.id_schoolyear', '=', 'schoolyears.id')
+        //     ->join('tolltypes', 'students.id_tolltype', '=', 'tolltypes.id_type')
+        //     ->where('students.id_classes','=',$id)
+        //     ->get();
+        return DB::select("SELECT * FROM students
+        INNER JOIN classes ON students.id_classes = classes.id_class
+        INNER JOIN schoolyears ON classes.id_schoolyear = schoolyears.id
+        INNER JOIN tolltypes ON students.id_tolltype = tolltypes.id_type
+        WHERE students.id_classes = $id AND  schoolyears.currentbatch > students.number_payment");
     }
 
     static function wave()

@@ -23,11 +23,11 @@
                 <tbody>
                     @forelse ($batch as $item)
                         <tr id="tr2">
-                            @if ($item->number_payment >= $item->currentbatch)
+                            {{-- @if ($item->number_payment >= $item->currentbatch)
                             <script>
                                 document.getElementById("tr2").style.display = "none";
                             </script>
-                            @endif
+                            @endif --}}
                             
                             <td>{{ $item->student_code }}</td>
                             <td>{{ $item->name_student }}</td>
@@ -85,7 +85,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">Danh sách trống</td>
+                            <td colspan="7">Danh sách trống</td>
                         </tr>
                     @endforelse
 

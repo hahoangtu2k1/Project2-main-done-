@@ -34,12 +34,12 @@
                             <td>{{ $item->number_payment }}</td>
                             <td>{{ $item->tolltype }}</td>
                             <td>
-                                @if ($item->number_payment >= $item->currentbatch)
+                                {{-- @if ($item->number_payment >= $item->currentbatch)
                                     <i class="fas fa-check-circle"></i> Đã đóng
                                 @endif
-                                @if ($item->number_payment < $item->currentbatch)
+                                @if ($item->number_payment < $item->currentbatch) --}}
                                     <a style="text-decoration: none" title="Thu học phí" href="{{ url('admin/tuition/collect-tuition/' . $item->id_student) }}"><i class="fas fa-money-bill-alt"></i> Thu tiền</a>
-                                @endif
+                                {{-- @endif --}}
                             </td>
                             <td>
                                 <a href="{{ url('admin/tuition/list-invoice/' . $item->id_student) }}" title="Xem phiếu thu" style="text-decoration: none"><i class="fas fa-eye"></i> Xem phiếu thu</a>
